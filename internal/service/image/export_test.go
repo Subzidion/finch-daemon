@@ -43,11 +43,11 @@ var _ = Describe("Image Export API", func() {
 			img := images.Image{Name: name}
 			cdClient.EXPECT().SearchImage(gomock.Any(), name).
 				Return([]images.Image{img}, nil)
-			ncClient.EXPECT().ExportImage(gomock.Any(), gomock.Any(), gomock.Any()).
+			ncClient.EXPECT().ExportImage(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).
 				Return(nil)
 
 			var buf bytes.Buffer
-			err := service.Export(ctx, name, &buf)
+			err := service.Export(ctx, name, nil, &buf)
 			Expect(err).Should(BeNil())
 		})
 		It("should return NotFound error if image not found", func() {
@@ -56,7 +56,7 @@ var _ = Describe("Image Export API", func() {
 			logger.EXPECT().Debugf(gomock.Any(), gomock.Any())
 
 			var buf bytes.Buffer
-			err := service.Export(ctx, name, &buf)
+			err := service.Export(ctx, name, nil, &buf)
 			Expect(err).ShouldNot(BeNil())
 			Expect(errdefs.IsNotFound(err)).Should(BeTrue())
 		})
@@ -64,11 +64,11 @@ var _ = Describe("Image Export API", func() {
 			img := images.Image{Name: name}
 			cdClient.EXPECT().SearchImage(gomock.Any(), name).
 				Return([]images.Image{img}, nil)
-			ncClient.EXPECT().ExportImage(gomock.Any(), gomock.Any(), gomock.Any()).
+			ncClient.EXPECT().ExportImage(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).
 				Return(errors.New("export error"))
 
 			var buf bytes.Buffer
-			err := service.Export(ctx, name, &buf)
+			err := service.Export(ctx, name, nil, &buf)
 			Expect(err).ShouldNot(BeNil())
 		})
 	})

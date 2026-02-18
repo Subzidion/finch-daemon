@@ -16,6 +16,7 @@ import (
 
 	dockercompat "github.com/containerd/nerdctl/v2/pkg/inspecttypes/dockercompat"
 	types "github.com/docker/cli/cli/config/types"
+	v1 "github.com/opencontainers/image-spec/specs-go/v1"
 	types0 "github.com/runfinch/finch-daemon/api/types"
 	gomock "go.uber.org/mock/gomock"
 )
@@ -89,17 +90,17 @@ func (mr *MockServiceMockRecorder) Load(ctx, inStream, outStream, quiet any) *go
 }
 
 // Export mocks base method.
-func (m *MockService) Export(ctx context.Context, name string, outStream io.Writer) error {
+func (m *MockService) Export(ctx context.Context, name string, platform *v1.Platform, outStream io.Writer) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Export", ctx, name, outStream)
+	ret := m.ctrl.Call(m, "Export", ctx, name, platform, outStream)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Export indicates an expected call of Export.
-func (mr *MockServiceMockRecorder) Export(ctx, name, outStream any) *gomock.Call {
+func (mr *MockServiceMockRecorder) Export(ctx, name, platform, outStream any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Export", reflect.TypeOf((*MockService)(nil).Export), ctx, name, outStream)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Export", reflect.TypeOf((*MockService)(nil).Export), ctx, name, platform, outStream)
 }
 
 // Pull mocks base method.

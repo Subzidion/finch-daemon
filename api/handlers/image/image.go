@@ -11,6 +11,7 @@ import (
 	"github.com/containerd/nerdctl/v2/pkg/config"
 	"github.com/containerd/nerdctl/v2/pkg/inspecttypes/dockercompat"
 	dockertypes "github.com/docker/cli/cli/config/types"
+	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 
 	"github.com/runfinch/finch-daemon/api/types"
 	"github.com/runfinch/finch-daemon/pkg/flog"
@@ -25,7 +26,7 @@ type Service interface {
 	Tag(ctx context.Context, srcImg string, repo, tag string) error
 	Inspect(ctx context.Context, name string) (*dockercompat.Image, error)
 	Load(ctx context.Context, inStream io.Reader, outStream io.Writer, quiet bool) error
-	Export(ctx context.Context, name string, outStream io.Writer) error
+	Export(ctx context.Context, name string, platform *ocispec.Platform, outStream io.Writer) error
 }
 
 func RegisterHandlers(r types.VersionedRouter, service Service, conf *config.Config, logger flog.Logger) {
