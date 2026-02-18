@@ -110,17 +110,17 @@ func (mr *MockNerdctlImageSvcMockRecorder) LoadImage(ctx, img, stdout, quiet any
 }
 
 // ExportImage mocks base method.
-func (m *MockNerdctlImageSvc) ExportImage(ctx context.Context, imgs []images.Image, writer io.Writer) error {
+func (m *MockNerdctlImageSvc) ExportImage(ctx context.Context, imgs []images.Image, platform *v1.Platform, writer io.Writer) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ExportImage", ctx, imgs, writer)
+	ret := m.ctrl.Call(m, "ExportImage", ctx, imgs, platform, writer)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // ExportImage indicates an expected call of ExportImage.
-func (mr *MockNerdctlImageSvcMockRecorder) ExportImage(ctx, imgs, writer any) *gomock.Call {
+func (mr *MockNerdctlImageSvcMockRecorder) ExportImage(ctx, imgs, platform, writer any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExportImage", reflect.TypeOf((*MockNerdctlImageSvc)(nil).ExportImage), ctx, imgs, writer)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExportImage", reflect.TypeOf((*MockNerdctlImageSvc)(nil).ExportImage), ctx, imgs, platform, writer)
 }
 
 // Namespace mocks base method.

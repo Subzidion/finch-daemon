@@ -8,12 +8,13 @@ import (
 	"io"
 
 	"github.com/containerd/containerd/v2/core/images"
+	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
-func (s *service) Export(ctx context.Context, name string, outStream io.Writer) error {
+func (s *service) Export(ctx context.Context, name string, platform *ocispec.Platform, outStream io.Writer) error {
 	img, err := s.getImage(ctx, name)
 	if err != nil {
 		return err
 	}
-	return s.nctlImageSvc.ExportImage(ctx, []images.Image{*img}, outStream)
+	return s.nctlImageSvc.ExportImage(ctx, []images.Image{*img}, platform, outStream)
 }
