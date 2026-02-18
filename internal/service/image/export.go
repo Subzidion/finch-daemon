@@ -7,7 +7,6 @@ import (
 	"context"
 	"io"
 
-	"github.com/containerd/containerd/v2/core/images"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
@@ -16,5 +15,5 @@ func (s *service) Export(ctx context.Context, name string, platform *ocispec.Pla
 	if err != nil {
 		return err
 	}
-	return s.nctlImageSvc.ExportImage(ctx, []images.Image{*img}, platform, outStream)
+	return s.nctlImageSvc.ExportImage(ctx, []string{img.Name}, platform, outStream)
 }

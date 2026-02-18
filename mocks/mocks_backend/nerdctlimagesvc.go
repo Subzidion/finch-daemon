@@ -110,9 +110,9 @@ func (mr *MockNerdctlImageSvcMockRecorder) LoadImage(ctx, img, stdout, quiet any
 }
 
 // ExportImage mocks base method.
-func (m *MockNerdctlImageSvc) ExportImage(ctx context.Context, imgs []images.Image, platform *v1.Platform, writer io.Writer) error {
+func (m *MockNerdctlImageSvc) ExportImage(ctx context.Context, imageNames []string, platform *v1.Platform, writer io.Writer) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ExportImage", ctx, imgs, platform, writer)
+	ret := m.ctrl.Call(m, "ExportImage", ctx, imageNames, platform, writer)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
