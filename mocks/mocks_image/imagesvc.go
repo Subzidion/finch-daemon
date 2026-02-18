@@ -88,6 +88,20 @@ func (mr *MockServiceMockRecorder) Load(ctx, inStream, outStream, quiet any) *go
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Load", reflect.TypeOf((*MockService)(nil).Load), ctx, inStream, outStream, quiet)
 }
 
+// Export mocks base method.
+func (m *MockService) Export(ctx context.Context, name string, outStream io.Writer) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Export", ctx, name, outStream)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Export indicates an expected call of Export.
+func (mr *MockServiceMockRecorder) Export(ctx, name, outStream any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Export", reflect.TypeOf((*MockService)(nil).Export), ctx, name, outStream)
+}
+
 // Pull mocks base method.
 func (m *MockService) Pull(ctx context.Context, name, tag, platform string, authCfg *types.AuthConfig, outStream io.Writer) error {
 	m.ctrl.T.Helper()

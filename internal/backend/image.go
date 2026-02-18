@@ -8,6 +8,7 @@ import (
 	"io"
 
 	"github.com/containerd/containerd/v2/core/images"
+	"github.com/containerd/containerd/v2/core/images/archive"
 	"github.com/containerd/containerd/v2/core/remotes"
 	"github.com/containerd/containerd/v2/core/remotes/docker"
 	dockerconfig "github.com/containerd/containerd/v2/core/remotes/docker/config"
@@ -32,6 +33,7 @@ type NerdctlImageSvc interface {
 	PushImage(ctx context.Context, resolver remotes.Resolver, tracker docker.StatusTracker, stdout io.Writer, pushRef, ref string, platMC platforms.MatchComparer) error
 	SearchImage(ctx context.Context, name string) (int, int, []*images.Image, error)
 	LoadImage(ctx context.Context, img string, stdout io.Writer, quiet bool) error
+	ExportImage(ctx context.Context, imgs []images.Image, writer io.Writer) error
 	GetDataStore() (string, error)
 	Namespace() string
 }
@@ -129,4 +131,8 @@ func (w *NerdctlWrapper) LoadImage(ctx context.Context, img string, stdout io.Wr
 		Quiet:        q,
 	})
 	return err
+}
+
+func (w *NerdctlWrapper) ExportImage(ctx context.Context, imgs []images.Image, writer io.Writer) error {
+	return w.clientWrapper.client.Export(ctx, writer, archive.WithImages(imgs))
 }
